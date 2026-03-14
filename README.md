@@ -51,24 +51,29 @@ This data allows analysis of sales performance, order behavior, and product popu
 SQL was used to extract core business metrics from the raw dataset.
 
 Key SQL Calculations
+
 1️⃣ Total Revenue
 
 Total revenue generated from pizza sales.
 
 SELECT SUM(total_price) AS Total_Revenue
 FROM pizza_sales;
+
 2️⃣ Average Order Value
 
 Average amount spent per order.
 
 SELECT SUM(total_price) / COUNT(DISTINCT order_id) AS Avg_Order_Value
 FROM pizza_sales;
+
 3️⃣ Total Pizzas Sold
 SELECT SUM(quantity) AS Total_Pizzas_Sold
 FROM pizza_sales;
+
 4️⃣ Total Orders
 SELECT COUNT(DISTINCT order_id) AS Total_Orders
 FROM pizza_sales;
+
 5️⃣ Average Pizzas Per Order
 SELECT 
 CAST(
@@ -76,26 +81,31 @@ CAST(
     CAST(COUNT(DISTINCT order_id) AS DECIMAL(10,2))
 AS DECIMAL(10,2)) AS Avg_Pizzas_Per_Order
 FROM pizza_sales;
+
 6️⃣ Daily Order Trend
 SELECT DATENAME(WEEKDAY, order_date) AS Order_Day,
 COUNT(DISTINCT order_id) AS Total_Orders
 FROM pizza_sales
 GROUP BY DATENAME(WEEKDAY, order_date);
+
 7️⃣ Hourly Order Trend
 SELECT DATEPART(HOUR, order_time) AS Order_Hour,
 COUNT(DISTINCT order_id) AS Total_Orders
 FROM pizza_sales
 GROUP BY DATEPART(HOUR, order_time);
+
 8️⃣ Sales by Category
 SELECT pizza_category,
 SUM(total_price) AS Revenue
 FROM pizza_sales
 GROUP BY pizza_category;
+
 9️⃣ Sales by Pizza Size
 SELECT pizza_size,
 SUM(total_price) AS Revenue
 FROM pizza_sales
 GROUP BY pizza_size;
+
 🔟 Best Selling Pizzas
 SELECT TOP 5 pizza_name,
 SUM(quantity) AS Total_Sold
